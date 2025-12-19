@@ -10,7 +10,7 @@ use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', function () {
-    return redirect()->route('transactions');
+    return redirect()->route('dashboard');
 });
 
 Route::get('/transactions', [PageController::class, 'transactions'])->name('transactions');

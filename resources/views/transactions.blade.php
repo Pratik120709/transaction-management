@@ -89,16 +89,26 @@ function loadTransactions(page = 1) {
         const tbody = document.getElementById('transactionsTable');
         tbody.innerHTML = transactions.map(transaction => `
             <tr>
-                <td>${transaction.transaction_id}</td>
-                <td>${transaction.name}</td>
-                <td>${transaction.email}</td>
+                <td>
+                    <span id="txn-${transaction.id}">
+                        ${transaction.transaction_id}
+                    </span>
+
+                    <a href="javascript:void(0);"
+                    onclick="copyTransactionId('txn-${transaction.id}')"
+                    title="Copy Transaction ID" data-bs-toggle="tooltip">
+                        <i class="fa-regular fa-copy ms-2 text-primary"></i>
+                    </a>
+                </td>
+                <td><i class="fa-solid fa-user text-primary me-2"></i>${transaction.name}</td>
+                <td><i class="fa-solid fa-envelope me-2 text-primary"></i>${transaction.email}</td>
                 <td>$${parseFloat(transaction.amount).toFixed(2)}</td>
                 <td>
                     <span class=" text-uppercase p-2 badge bg-${getStatusColor(transaction.status)}">
                         ${transaction.status}
                     </span>
                 </td>
-                <td>${new Date(transaction.created_at).toLocaleString()}</td>
+                <td>${new Date(transaction.updated_at).toLocaleDateString('en-GB')}</td>
             </tr>
         `).join('');
 
@@ -165,5 +175,16 @@ document.getElementById('limit').addEventListener('change', function(e) {
 
 // Initial load
 loadTransactions(1);
+
+// copy transaction id
+    function copyTransactionId(elementId) {
+        const text = document.getElementById(elementId).innerText.trim();
+
+        navigator.clipboard.writeText(text).then(() => {
+            toastr.success('Transaction ID copied!');
+        }).catch(() => {
+            toastr.error('Failed to copy');
+        });
+    }
 </script>
 @endpush

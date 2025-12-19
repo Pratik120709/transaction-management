@@ -46,9 +46,9 @@ function loadDashboardData() {
                 <tr>
                     <td>${new Date(item.date).toLocaleDateString()}</td>
                     <td>$${parseFloat(item.total_amount).toFixed(2)}</td>
-<td>${
-    new Date(item.updated_at).toLocaleDateString('en-GB')
-}</td>
+                    <td>${
+                        new Date(item.updated_at).toLocaleDateString('en-GB')
+                    }</td>
                 </tr>
             `).join('');
         })
@@ -66,12 +66,12 @@ function calculateYesterdayTotal() {
 
     axios.post('/api/calculate-yesterday')
         .then(response => {
-            alert(response.data.message);
+            toastr.success(response.data.message);
             loadDashboardData();
         })
         .catch(error => {
             console.error('Error calculating total:', error);
-            alert('Error calculating total. Please try again.');
+            toastr.error('Error calculating total. Please try again.');
         })
         .finally(() => {
             button.innerHTML = originalText;
