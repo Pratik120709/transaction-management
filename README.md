@@ -13,3 +13,30 @@ A Laravel-based transaction management system with dashboard and reporting featu
 ## Setup Instructions
 
 
+### Step 1: Clone the Repository
+
+```bash
+git clone <repository-url>
+cd transaction-management
+
+
+Step 2: Install PHP Dependencies
+
+composer install
+
+php artisan key:generate
+
+Step 3: setup env
+
+Step 4: Database Setup
+
+# Run migrations
+php artisan migrate
+
+# Seed the database with sample data
+php artisan db:seed
+
+Step 5: Run Development Server
+
+# Start the Laravel server
+php artisan serve
